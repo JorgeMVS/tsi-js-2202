@@ -87,5 +87,5 @@ document.write(res);
 //coalescente
 
 let coisa = null;
-let variavel = coisa ?? "não há";
+let variavel = coisa ?? "não há ";
 document.write(variavel);
