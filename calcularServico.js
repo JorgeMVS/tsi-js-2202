@@ -21,7 +21,7 @@ alert("O serviço ficará em:  " + tabela[serviço][prazo])
 
 else
 {
-    alert("ERROR")
+    alert("ERROR");
 }
 
 function validaEntrada (dadoUsuario)
