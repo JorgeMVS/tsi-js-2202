@@ -22,4 +22,11 @@ let e;
 //e = document.querySelector('div');
 //e = document.querySelector('input#task');
 
-console.log(e);
+
+//Com querySelector()
+
+//e = document.querySelector('li:nth-child(3)').innerText;
+//e = document.querySelector('span');
+
+//console.log(e);
+
