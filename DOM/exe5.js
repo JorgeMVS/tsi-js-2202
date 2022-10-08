@@ -35,9 +35,9 @@ novoItem.appendChild(elementoLink);
 
 //por class name
 //let lista = document.getElementsByClassName('collection');
-//lista[0].appendChild(novoItem);
+//lista[0].appendChild(novoItem);agi
 
-
+//com query selector
 let lista = document.querySelector('ul.collection');
 lista.appendChild(novoItem);
 
