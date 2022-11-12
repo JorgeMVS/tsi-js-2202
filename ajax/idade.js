@@ -21,4 +21,4 @@ function recuperaDados(evento) {
 
         document.getElementById('nome').value = '';
     });
-}
+} 
