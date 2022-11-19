@@ -2,6 +2,7 @@ document.querySelector('button').addEventListener('click',recuperaDados)
 
 function recuperaDados(evento) {
    evento.preventDefault();
+   document.querySelector('#ipca').innerHTML ='';
 
   const url =`https://api.bcb.gov.br/dados/serie/bcdata.sgs.4448/dados?formato=json&dataInicial=20201101`;
                                                     //então (depois)
@@ -9,43 +10,61 @@ function recuperaDados(evento) {
        //pega apenas o conteudo do retorno
     return retorno.text();
 
-  
       //então 
     }).then(function(stringJson){
 
-        const indice = JSON.parse(stringJson);
+        const indices = JSON.parse(stringJson);
 
-        console.log(indice);
+        let usuario = document.getElementById('usuario').value;
+
+
+        let indice;
+        let ipca = [];
+
+        indices.forEach( function ( mes ) {
+                        
+          anoString = mes.data.substring(6, 10);
+          mesString = mes.data.substring(3, 5);
+          anoMesString = anoString + '-' + mesString;  
+
+          if(parseInt(anoString) != usuario && usuario != "")
+          {
+            return;
+          }
+
+         indice = parseFloat(mes.valor);
+         ipca.push({month: anoMesString, value: indice});
+
+        });
+
+        if (ipca.length==0) {
+            alert(`Não há dados para o ano ${usuario}`);
+        }
+
+
+
+console.log(ipca);        //fzr em casa colocar os dadosda pi no grafico
 
 
                              //CRIANDO UM GRÁFICO DE LINHAS
-                            new Morris.Line({
+    jsonParaMorris = {
                             // ID do elemento onde o gráfico vai aparecer.
                             element: 'ipca',
 
-                            resize: true,
-                            
-                            // Dados que preenchem o gráfico
-                            //Esse bloco é um objeto JSON
-                            data: [
-                            { year: '2008', value: 20 },
-                            { year: '2009', value: 10 },
-                            { year: '2010', value: 20 },
-                            { year: '2011', value: 10 },
-                            { year: '2013', value: 20 },
-                            { year: '2014', value: 10 }
-                            ],
+                            data:ipca,
                             
                             //O nome do atributo de registro de dados que contém valores de x
-                            xkey: 'year',
+                            xkey: 'month',
                             
                             // Uma lista de nomes de atributos de registro de dados que contêm valores y.
                             ykeys: ['value'],
                             
                             // Rótulos para os índices -- serão exibidos quando você passar o mouse sobre o
                             // gráfico.
-                            labels: ['Value']
-                        });
+                            labels: ['IPCA']
+                     };
+
+                        new Morris.Line(jsonParaMorris);
 
         
     }).catch(function(){
